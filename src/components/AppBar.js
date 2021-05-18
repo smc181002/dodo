@@ -1,28 +1,37 @@
 import styled from 'styled-components';
+import FeatherIcon from 'feather-icons-react';
 
-const AppBarRoot = styled.div`
-display: flex;
-place-items: center;
-background-color: #fcfcfc;
-height: 80px;
-justify-content: flex-end;
+import {ThemeWrapper} from './commonStyles';
+
+const AppBarRoot = styled(ThemeWrapper)`
+  display: flex;
+  place-items: center;
+  background-color: ${({theme}) => theme.pageBackground};
+  height: 80px;
+  justify-content: flex-end;
 `;
 
-const Check = styled.label`
-color: #3e4752;
+const Actions = styled(ThemeWrapper)`
+  display: flex;
+  place-items: center;
+  height: 80px;
+  justify-content: space-around;
+  margin-right: 10px;
+  & svg {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 `;
 
-function AppBar() {
+function AppBar({theme, setTheme}) {
   return (
     <AppBarRoot>
-      <Check>
-        <input type="checkbox" />
-        Show Tasks
-      </Check>
-      <Check>
-        <input type="checkbox" />
-        Dark Mode
-      </Check>
+      <Actions>
+        <FeatherIcon style={{cursor: "pointer"}} icon={theme === 'light' ? "moon" : "sun"} 
+            onClick={(e) => (theme === 'light' ? setTheme('dark') : setTheme('light'))} />
+
+        <FeatherIcon style={{cursor: "pointer"}} icon="settings" />
+      </Actions>
     </AppBarRoot>
   );
 }
