@@ -3,6 +3,11 @@ import FeatherIcon from 'feather-icons-react';
 
 import {ThemeWrapper} from './commonStyles';
 
+// AppBarRoot components as a wrapper for 
+// application of the theme from ThemeProvider
+
+// ThemeWrapper is a styled component which has the basic
+// background color and textColor update according to the ThemeProvider
 const AppBarRoot = styled(ThemeWrapper)`
   display: flex;
   place-items: center;
@@ -11,6 +16,8 @@ const AppBarRoot = styled(ThemeWrapper)`
   justify-content: flex-end;
 `;
 
+// ThemeProvider to change the colors of incons in the
+// actions and some alignment css rules 
 const Actions = styled(ThemeWrapper)`
   display: flex;
   place-items: center;
@@ -28,7 +35,7 @@ function AppBar({theme, setTheme}) {
     <AppBarRoot>
       <Actions>
         <FeatherIcon style={{cursor: "pointer"}} icon={theme === 'light' ? "moon" : "sun"} 
-            onClick={(e) => (theme === 'light' ? setTheme('dark') : setTheme('light'))} />
+            onClick={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))} />
 
         <FeatherIcon style={{cursor: "pointer"}} icon="settings" />
       </Actions>

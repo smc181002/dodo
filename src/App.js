@@ -1,27 +1,33 @@
-import {useState} from 'react';
-import {ThemeProvider, createGlobalStyle} from 'styled-components';
+import {useState, useEffect} from 'react';
+import {ThemeProvider} from 'styled-components';
 
 import themes from './themes';
+import GlobalStyles from './globalStyles';
 import AppBar from './components/AppBar';
-
+import SearchBar from './components/SearchBar';
 
 function App() {
-  const [theme, setTheme] = useState('light');
 
-  const GlobalStyles = createGlobalStyle`
-  body, .App {
-    background-color: ${({theme}) => theme.pageBackground};
-    color: ${({theme}) => theme.textColor};
-    transition: 0.2s ease-in-out;
-  }
-  `;
+  // React State that will store the theme 
+  // information from the local storage
+  const [theme, setTheme] = useState(
+      localStorage.getItem('theme') || 'light');
+
+  // use Effect to change the theme inside the 
+  // local storage whenever the theme is changed
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme])
+
   return (
+    // Theme Provider from styled components that will send
+    // the theme information from the themes.js file to all the
+    // styled comonents as props which will help to change the styles
     <ThemeProvider theme={themes[theme]}>
       <GlobalStyles/>
+      {/* the theme and the set theme are passed to change the theme*/}
         <AppBar theme={theme} setTheme={setTheme}/>
-        <div className="App">
-          Hello There!
-        </div>
+        <SearchBar />
     </ThemeProvider>
   );
 }
